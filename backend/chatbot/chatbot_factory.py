@@ -13,7 +13,6 @@ def get_chatbot():
     vector_search = VectorSearch(
         embedding_model_name=Config.EMBEDDING_MODEL_NAME,
         pinecone_api_key=Config.PINECONE_API_KEY,
-        pinecone_environment=Config.PINECONE_ENVIRONMENT,
         pinecone_index_name=Config.PINECONE_INDEX_NAME
     )
 

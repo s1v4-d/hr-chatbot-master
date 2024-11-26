@@ -13,7 +13,6 @@ document_processor = DocumentProcessor(chunk_size=1000, chunk_overlap=100)
 embedding_generator = EmbeddingGenerator(model_name=Config.EMBEDDING_MODEL_NAME)
 pinecone_manager = PineconeManager(
     api_key=Config.PINECONE_API_KEY,
-    environment=Config.PINECONE_ENVIRONMENT,
     index_name=Config.PINECONE_INDEX_NAME
 )
 bm25_retriever = BM25Retriever()

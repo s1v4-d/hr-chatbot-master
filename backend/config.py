@@ -11,7 +11,7 @@ class Config:
     PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
     PINECONE_ENVIRONMENT = os.getenv("PINECONE_ENVIRONMENT", "us-east-1")
     PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "hr-chatbot-index")
-    PINECONE_DIMENSION = os.getenv("PINECONE_DIMENSION", 1536)
+    PINECONE_DIMENSION = os.getenv("PINECONE_DIMENSION", 1024)
     EMBEDDING_MODEL_NAME = os.getenv("EMBEDDING_MODEL_NAME", "BAAI/bge-large-en")
     LLM_MODEL_NAME = os.getenv("LLM_MODEL_NAME", "llama3-70b-8192")
     ELASTICSEARCH_HOST = os.getenv("ELASTICSEARCH_HOST", "http://localhost:9200")

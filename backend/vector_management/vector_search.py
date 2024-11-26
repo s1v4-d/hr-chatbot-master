@@ -5,11 +5,10 @@ from backend.vector_management.reranker import Reranker
 class VectorSearch:
     """Hybrid search with minimum coverage and reranking."""
 
-    def __init__(self, embedding_model_name, pinecone_api_key, pinecone_environment, pinecone_index_name, dimension=1024):
+    def __init__(self, embedding_model_name, pinecone_api_key, pinecone_index_name, dimension=1024):
         self.bm25_retriever = BM25Retriever()
         self.pinecone_manager = PineconeManager(
             api_key=pinecone_api_key,
-            environment=pinecone_environment,
             index_name=pinecone_index_name,
             dimension=dimension
         )
