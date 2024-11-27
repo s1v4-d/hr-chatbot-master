@@ -55,3 +55,123 @@
 2024-11-26 16:59:35,034 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
 2024-11-26 16:59:35,035 - INFO - Looking for plugins in pinecone_plugins.inference
 2024-11-26 16:59:35,035 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:27:03,840 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:27:04,178 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:27:04,178 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:27:09,289 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:27:09,290 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:27:09,309 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:31:51,367 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:31:51,510 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:31:51,510 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:31:56,040 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:31:56,040 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:31:56,046 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:32:05,420 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:32:05,687 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:32:05,687 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:32:09,580 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:32:09,581 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:32:09,591 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:32:36,184 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:32:36,678 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:32:36,678 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:32:40,632 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:32:40,632 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:32:40,639 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:34:15,742 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:34:15,888 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:34:15,888 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:34:19,542 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:34:19,542 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:34:19,549 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:34:28,865 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:34:29,126 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:34:29,126 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:34:32,561 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:34:32,562 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:34:32,572 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:35:05,287 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:35:05,443 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:35:05,443 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:35:08,443 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:35:08,443 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:35:08,450 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:35:17,666 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:35:17,818 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:35:17,818 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:35:21,469 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:35:21,469 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:35:21,476 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:35:30,829 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:35:31,128 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:35:31,128 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:35:34,377 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:35:34,377 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:35:34,387 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:37:56,627 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:37:56,871 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:37:56,871 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:38:00,888 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:38:00,889 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:38:00,899 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:38:16,250 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:38:16,403 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:38:16,403 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:38:19,849 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:38:19,849 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:38:19,856 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:38:29,264 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:38:29,508 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:38:29,508 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:38:32,910 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:38:32,911 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:38:32,920 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:47:36,381 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:47:37,154 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:47:37,154 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:47:40,566 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:47:40,567 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:47:40,577 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:47:51,288 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:47:51,288 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:47:51,288 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:49:56,224 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:49:56,841 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:49:56,841 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:50:00,667 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:50:00,667 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:50:00,677 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:50:02,888 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:50:02,888 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:50:02,888 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:52:15,123 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:52:15,667 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:52:15,667 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:52:18,938 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:52:18,938 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:52:18,959 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:52:21,319 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:52:21,319 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:52:21,319 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:52:29,764 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:52:30,395 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:52:30,396 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:52:33,776 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:52:33,777 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:52:33,787 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:52:36,368 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:52:36,369 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:52:36,369 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:54:15,556 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:54:16,350 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:54:16,351 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:54:19,913 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:54:19,913 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:54:19,926 - INFO - Installing plugin inference into Pinecone
+2024-11-27 04:54:36,937 - INFO - Configuration validated and logging initialized.
+2024-11-27 04:54:37,552 - INFO - Use pytorch device_name: cpu
+2024-11-27 04:54:37,552 - INFO - Load pretrained SentenceTransformer: BAAI/bge-large-en
+2024-11-27 04:54:41,029 - INFO - Discovering subpackages in _NamespacePath(['/workspaces/voice-chat-bot-using-rag/.venv/lib/python3.12/site-packages/pinecone_plugins'])
+2024-11-27 04:54:41,030 - INFO - Looking for plugins in pinecone_plugins.inference
+2024-11-27 04:54:41,040 - INFO - Installing plugin inference into Pinecone

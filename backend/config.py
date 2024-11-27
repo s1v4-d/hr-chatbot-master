@@ -10,8 +10,9 @@ class Config:
     GROQ_API_KEY = os.getenv("GROQ_API_KEY")
     PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
     PINECONE_ENVIRONMENT = os.getenv("PINECONE_ENVIRONMENT", "us-east-1")
+    PINECONE_CLOUD = os.getenv("PINECONE_CLOUD", "aws")
     PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "hr-chatbot-index")
-    PINECONE_DIMENSION = os.getenv("PINECONE_DIMENSION", 1024)
+    PINECONE_DIMENSION = int(os.getenv("PINECONE_DIMENSION", 1024))
     EMBEDDING_MODEL_NAME = os.getenv("EMBEDDING_MODEL_NAME", "BAAI/bge-large-en")
     LLM_MODEL_NAME = os.getenv("LLM_MODEL_NAME", "llama3-70b-8192")
     ELASTICSEARCH_HOST = os.getenv("ELASTICSEARCH_HOST", "http://localhost:9200")
@@ -20,28 +21,28 @@ class Config:
     ADMIN_USERNAME = os.getenv("ADMIN_USERNAME")
     ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 
-    @staticmethod
-    def validate():
-        """Validate configuration variables."""
-        required_vars = [
-            "GROQ_API_KEY",
-            "PINECONE_API_KEY",
-            "EMBEDDING_MODEL_NAME",
-            "LLM_MODEL_NAME"
-        ]
-        for var in required_vars:
-            if not getattr(Config, var):
-                raise ValueError(f"Missing required environment variable: {var}")
+#     @staticmethod
+#     def validate():
+#         """Validate configuration variables."""
+#         required_vars = [
+#             "GROQ_API_KEY",
+#             "PINECONE_API_KEY",
+#             "EMBEDDING_MODEL_NAME",
+#             "LLM_MODEL_NAME"
+#         ]
+#         for var in required_vars:
+#             if not getattr(Config, var):
+#                 raise ValueError(f"Missing required environment variable: {var}")
 
-# Validate configuration and setup logging
-try:
-    Config.validate()
-    logging.basicConfig(
-        filename="logs/chatbot.log",
-        level=logging.INFO,
-        format="%(asctime)s - %(levelname)s - %(message)s"
-    )
-    logging.info("Configuration validated and logging initialized.")
-except Exception as e:
-    logging.error(f"Configuration validation failed: {str(e)}")
-    raise
+# # Validate configuration and setup logging
+# try:
+#     Config.validate()
+#     logging.basicConfig(
+#         filename="logs/chatbot.log",
+#         level=logging.INFO,
+#         format="%(asctime)s - %(levelname)s - %(message)s"
+#     )
+#     logging.info("Configuration validated and logging initialized.")
+# except Exception as e:
+#     logging.error(f"Configuration validation failed: {str(e)}")
+#     raise

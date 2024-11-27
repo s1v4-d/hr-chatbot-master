@@ -1,7 +1,8 @@
-from pinecone import Pinecone
+from pinecone import Pinecone, ServerlessSpec
+from backend.config import Config
 
 class PineconeManager:
-    def __init__(self, api_key, index_name, dimension=768):
+    def __init__(self, api_key, index_name, dimension=Config.PINECONE_DIMENSION):
         """
         Initialize Pinecone client and index.
 
@@ -12,6 +13,8 @@ class PineconeManager:
         """
         self.index_name = index_name
         self.dimension = dimension
+        self.cloud = Config.PINECONE_CLOUD
+        self.region = Config.PINECONE_ENVIRONMENT
 
         # Initialize Pinecone client
         self.client = Pinecone(api_key=api_key)
@@ -21,7 +24,8 @@ class PineconeManager:
             self.client.create_index(
                 name=self.index_name,
                 dimension=self.dimension,
-                metric="cosine"  # Metric can be adjusted if needed
+                metric="cosine",  # Metric can be adjusted if needed
+                spec= ServerlessSpec(cloud=self.cloud, region=self.region)
             )
 
         # Connect to the index
