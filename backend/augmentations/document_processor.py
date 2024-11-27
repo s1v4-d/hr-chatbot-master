@@ -13,24 +13,14 @@ class DocumentProcessor:
     def process_docx(self, file_path):
         """
         Process a DOCX file and split its content into chunks.
-
-        Args:
-            file_path (str): Path to the DOCX file.
-
-        Returns:
-            list: List of text chunks.
         """
-        text = DocxParser.extract_text(file_path)
-        return self.split_text(text)
-
-    def split_text(self, text):
-        """
-        Split text into chunks.
-
-        Args:
-            text (str): Text to be split.
-
-        Returns:
-            list: List of text chunks.
-        """
-        return self.splitter.split_text(text)
+        parser = DocxParser()
+        text = parser.extract_text(file_path)
+        chunks = self.splitter.split_text(text)
+        
+        # Debugging statements to verify the output
+        print(f"Number of chunks: {len(chunks)}")
+        for i, chunk in enumerate(chunks):
+            print(f"Chunk {i}: {chunk[:50]}...")  # Print first 50 characters of each chunk
+        
+        return chunks
