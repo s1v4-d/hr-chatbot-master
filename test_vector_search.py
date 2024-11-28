@@ -3,13 +3,16 @@
 from backend.augmentations.vector_search_with_filtering import VectorSearchWithFiltering
 from backend.augmentations.multi_query_generator import MultiQueryGenerator  # assuming this is your multi-query generator
 from backend.vector_management.pinecone_manager import PineconeManager  # assuming this is your Pinecone manager
+from backend.config import Config
 
 def main():
     query = "What are the best practices for HR policies?"
 
     # Initialize PineconeManager (ensure it's initialized correctly)
-    pinecone_manager = PineconeManager()
-    
+    pinecone_manager = PineconeManager(
+    api_key=Config.PINECONE_API_KEY,
+    index_name=Config.PINECONE_INDEX_NAME
+)
     # Initialize MultiQueryGenerator (ensure it's implemented correctly)
     multi_query_generator = MultiQueryGenerator()
 

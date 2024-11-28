@@ -1,11 +1,12 @@
-from llama_index.llms import ChatMessage
+from llama_index.core.llms import ChatMessage
 from llama_index.llms.groq import Groq
+from backend.chatbot.llm_factory import LLMFactory
 
 class MultiQueryGenerator:
     """Class to generate multiple query variations using an LLM."""
 
     def __init__(self, model_name, api_key):
-        self.llm = Groq(model=model_name, api_key=api_key)
+        self.llm = LLMFactory.create_llm(model_name, api_key)
 
     def generate_queries(self, user_query, num_queries=5):
         """

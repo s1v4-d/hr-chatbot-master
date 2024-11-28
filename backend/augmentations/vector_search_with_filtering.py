@@ -1,8 +1,8 @@
 # backend/augmentations/vector_search_with_filtering.py
 
-from multi_query_generator import MultiQueryGenerator  # assuming this is your multi-query generator
-from redundancy_filter import RedundancyFilter
-from reranker import Reranker
+from backend.augmentations.multi_query_generator import MultiQueryGenerator  # assuming this is your multi-query generator
+from backend.augmentations.redundancy_filter import RedundancyFilter
+from backend.augmentations.reranker import Reranker
 from backend.vector_management.pinecone_manager import PineconeManager  # assuming this is how you access Pinecone
 
 class VectorSearchWithFiltering:
