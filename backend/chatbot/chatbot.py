@@ -1,11 +1,11 @@
-from llama_index.llms.groq import Groq
+# chatbot.py
+from backend.chatbot.llm_factory import LLMFactory
 from backend.vector_management.vector_search import VectorSearch
-
 
 class HRChatbot:
     """Chatbot with hybrid search and minimum coverage."""
 
-    def __init__(self, vector_search, llm_model_name, llm_api_key):
+    def __init__(self, vector_search, llm_model_name=None, llm_api_key=None):
         """
         Initialize the chatbot with vector search and LLM configuration.
 
@@ -15,9 +15,7 @@ class HRChatbot:
             llm_api_key (str): The API key for the LLM service.
         """
         self.vector_search = vector_search
-
-        # Initialize the LLM with the provided model and API key
-        self.llm = Groq(model=llm_model_name, api_key=llm_api_key)
+        self.llm = LLMFactory.create_llm(model_name=llm_model_name, api_key=llm_api_key)
 
     async def generate_streaming_response(self, user_query):
         """

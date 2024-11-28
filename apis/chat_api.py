@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
-from backend.chatbot.chatbot_factory import get_chatbot
+from backend.chatbot.llm_factory import get_chatbot
 import asyncio
 
 router = APIRouter()
