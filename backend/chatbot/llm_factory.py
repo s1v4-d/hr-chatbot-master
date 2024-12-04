@@ -6,7 +6,7 @@ class LLMFactory:
     """Factory class to create instances of Large Language Models."""
  
     @staticmethod
-    def create_llm(model_name):
+    def call_llm(system_message, query):
         """
         Create an instance of the specified LLM.
  
@@ -22,6 +22,18 @@ class LLMFactory:
             raise ValueError("API key not found in Config.")
        
         # Initialize the Groq client with the provided API key
-        client = Groq(api_key=api_key)
+        groq_client = Groq(api_key=api_key)
+        messages = [
+        {"role": "system", "content": system_message},
+        {"role": "user", "content": query}
+    ]
+        model = Config.LLM_MODEL_NAME
+        if not model:
+            raise ValueError("Model name not found in Config.")
+
+        chat_response = groq_client.chat.completions.create(
+        model=model,
+        messages=messages
+    )
+        return chat_response.choices[0].message.content
  
-        return client
