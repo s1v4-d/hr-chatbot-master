@@ -35,5 +35,6 @@ class LLMFactory:
         model=model,
         messages=messages
     )
-        return chat_response.choices[0].message.content
+        chat_response_content = chat_response.choices[0].message.content
+        return chat_response_content
  
