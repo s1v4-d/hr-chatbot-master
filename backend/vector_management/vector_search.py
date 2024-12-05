@@ -32,6 +32,7 @@ class VectorSearch:
         retrievals = []
         for query in queries:
             results = self.search_vector_db(query, top_k=top_k)
+            print(f" results: {results}")
             retrievals.append(results)
         scored_chunks=[]
         for retrieval in retrievals:
@@ -41,4 +42,4 @@ class VectorSearch:
                     'score': match['score']
                 })
         unique_scored_chunks = [{'chunk': chunk, 'score': score} for chunk, score in scored_chunks]
-        return unique_scored_chunks
+        return scored_chunks

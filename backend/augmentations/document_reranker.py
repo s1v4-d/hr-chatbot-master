@@ -33,5 +33,8 @@ class DocumentReranker:
             for i in range(len(results))
         ]
         
+         # Sort the results by score in descending order
+        reranked_chunks_with_scores.sort(key=lambda x: x['score'], reverse=True)
+        
         # Return the top-k results
         return reranked_chunks_with_scores[:top_k]
