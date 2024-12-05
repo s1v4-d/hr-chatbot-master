@@ -24,13 +24,15 @@ def main():
         #print(results)
         retrievals.append(results)
     print(f"Total results: {len(retrievals)}")
-    print(retrievals[0])
+    print(type(retrievals))
+    print(type(retrievals[0]))
+    print(retrievals)
     
-    scores = []
-    for retrieval in retrievals:
-        scores.append(retrieval["metadata"]["score"])
+    # scores = []
+    # for retrieval in retrievals:
+    #     scores.append(retrieval["metadata"]["score"])
 
-    print(scores)
+    # print(scores)
 
 
 if __name__ == "__main__":

@@ -8,7 +8,7 @@ class VectorSearch:
     """Hybrid search with minimum coverage and reranking."""
 
     def __init__(self, embedding_model_name, pinecone_api_key, pinecone_index_name, dimension=1024):
-        print("Initializing VectorSearch...")
+        #print("Initializing VectorSearch...")
 
         # Initialize the embedding generator directly
         self.embedding_generator = EmbeddingGenerator(model_name=embedding_model_name)
@@ -28,33 +28,33 @@ class VectorSearch:
         
         # self.reranker = Reranker()
         # print("Reranker initialized.")
-        print("VectorSearch initialized successfully.")
+        #print("VectorSearch initialized successfully.")
 
-    def hybrid_search_with_min_coverage(self, query, top_k=3, coverage_threshold=0.7):
-        """
-        Perform hybrid search ensuring minimum coverage of the index.
+    # def hybrid_search_with_min_coverage(self, query, top_k=3, coverage_threshold=0.7):
+    #     """
+    #     Perform hybrid search ensuring minimum coverage of the index.
 
-        Args:
-            query (str): User query.
-            top_k (int): Number of results to retrieve.
-            coverage_threshold (float): Fraction of the index to cover.
+    #     Args:
+    #         query (str): User query.
+    #         top_k (int): Number of results to retrieve.
+    #         coverage_threshold (float): Fraction of the index to cover.
 
-        Returns:
-            list: Ranked and deduplicated results.
-        """
-        print(f"Starting hybrid search for query: '{query}'")
+    #     Returns:
+    #         list: Ranked and deduplicated results.
+    #     """
+    #     print(f"Starting hybrid search for query: '{query}'")
 
-        # Generate query embedding using the embedding generator
-        print("Generating query embedding...")
-        query_embedding = self.embedding_generator.generate_embedding(query)
-        print("Query embedding generated.")
+    #     # Generate query embedding using the embedding generator
+    #     print("Generating query embedding...")
+    #     query_embedding = self.embedding_generator.generate_embedding(query)
+    #     print("Query embedding generated.")
 
-        # Perform vector search
-        print(f"Performing vector search with top_k={top_k}...")
-        vector_results = self.pinecone_manager.query_vectors(query_embedding, top_k=top_k)
-        print(f"Vector search returned {len(vector_results.get('matches', []))} results.")
+    #     # Perform vector search
+    #     print(f"Performing vector search with top_k={top_k}...")
+    #     vector_results = self.pinecone_manager.query_vectors(query_embedding, top_k=top_k)
+    #     print(f"Vector search returned {len(vector_results.get('matches', []))} results.")
 
-        # Perform keyword (BM25) search
+    #     # Perform keyword (BM25) search
         # print("Performing BM25 keyword search...")
         # keyword_results = self.bm25_retriever.search(query, top_k=top_k)
         # print(f"BM25 search returned {len(keyword_results)} results.")
@@ -83,9 +83,9 @@ class VectorSearch:
 
     def search_vector_db(self, query, top_k=3):
         query_embedding = self.embedding_generator.generate_embedding(query)
-        print("Query embedding generated.")
+        # print("Query embedding generated.")
 
-        # Perform vector search
-        print(f"Performing vector search with top_k={top_k}...")
-        vector_results = self.pinecone_manager.query_vectors(query_embedding, top_k=top_k)
+        # # Perform vector search
+        # print(f"Performing vector search with top_k={top_k}...")
+        vector_search_results = self.pinecone_manager.query_vectors(query_embedding, top_k=top_k)
         return vector_search_results
