@@ -2,6 +2,7 @@ from backend.embeddings.embedding_generator import EmbeddingGenerator
 from backend.vector_management.pinecone_manager import PineconeManager
 from backend.augmentations.multi_query_generator import MultiQueryGenerator 
 from backend.config import Config
+from backend.augmentations.document_reranker import DocumentReranker
 
 class VectorSearch:
     """Hybrid search with minimum coverage and reranking."""
@@ -32,7 +33,6 @@ class VectorSearch:
         retrievals = []
         for query in queries:
             results = self.search_vector_db(query, top_k=top_k)
-            print(f" results: {results}")
             retrievals.append(results)
         scored_chunks=[]
         for retrieval in retrievals:
@@ -43,3 +43,15 @@ class VectorSearch:
                 })
         unique_scored_chunks = [{'chunk': chunk, 'score': score} for chunk, score in scored_chunks]
         return scored_chunks
+
+    def retrieve_ranked_chunks(self, query, top_k=3):
+        scored_chunks = self.search_vector_db_with_multi_query(query)
+        reranked_results = DocumentReranker().rerank_documents(query, scored_chunks, top_k=top_k)
+        return reranked_results
+
+    def get_context(self, query, top_k=3):
+        chunks = self.retrieve_ranked_chunks(query, top_k=top_k)
+        context=''
+        for chunk in chunks:
+            context+=chunk['chunk']+'\n'
+        return context

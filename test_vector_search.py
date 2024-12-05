@@ -41,11 +41,8 @@ def main():
     # # print(scores)
 
     query = "What are the best practices for HR policies?"
-    scored_chunks=vector_search.search_vector_db_with_multi_query(query)
-    print(scored_chunks)
-    # Initialize DocumentReranker
-    reranked_results = DocumentReranker().rerank_documents(query, scored_chunks)
-    print(reranked_results)
+    context= vector_search.get_context(query)
+    print(context)
 
 if __name__ == "__main__":
     main()
