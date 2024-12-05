@@ -4,6 +4,7 @@ from backend.vector_management.vector_search import VectorSearch
 from backend.augmentations.multi_query_generator import MultiQueryGenerator  # assuming this is your multi-query generator
 from backend.vector_management.pinecone_manager import PineconeManager  # assuming this is your Pinecone manager
 from backend.config import Config
+from backend.augmentations.document_reranker import DocumentReranker
 
 def main():
     # Initialize VectorSearch
@@ -40,8 +41,11 @@ def main():
     # # print(scores)
 
     query = "What are the best practices for HR policies?"
-    print(vector_search.search_vector_db_with_multi_query(query))
-
+    scored_chunks=vector_search.search_vector_db_with_multi_query(query)
+    print(scored_chunks)
+    # Initialize DocumentReranker
+    reranked_results = DocumentReranker().rerank_documents(query, scored_chunks)
+    print(reranked_results)
 
 if __name__ == "__main__":
     main()
