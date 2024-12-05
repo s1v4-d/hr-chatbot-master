@@ -27,7 +27,10 @@ class MultiQueryGenerator:
             list: List of query variations.
         """
         prompt = (
-            f"Generate {self.num_queries} different versions of the following query to improve information retrieval:\n"
+            f"""Generate {self.num_queries} different versions of the query to improve information retrieval:
+            make sure that you are using the right keywords and that the query is clear and concise.
+            Strictly give only the questions, do not provide any context or explanation. Do not include any extra text other than the questions in your response.
+            Start your response with the first question and end it with the last question, no need of any headers or pointers."""
         )
        
         # Split response into queries and append the original user query
