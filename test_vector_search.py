@@ -16,15 +16,22 @@ def main():
     # Initialize MultiQueryGenerator
     generator = MultiQueryGenerator("What are the best practices for HR policies?", 2)
     queries = generator.generate_queries()
-    print(queries)
-    vectors = []
+    #print(queries)
+    retrievals = []
     for query in queries:
         # Perform hybrid search with minimum coverage
         results = vector_search.search_vector_db(query, top_k=3)
-        print(results)
-        vectors.append(results)
-    print(f"Total results: {len(vectors)}")
-    print(vectors)
+        #print(results)
+        retrievals.append(results)
+    print(f"Total results: {len(retrievals)}")
+    print(retrievals[0])
+    
+    scores = []
+    for retrieval in retrievals:
+        scores.append(retrieval["metadata"]["score"])
+
+    print(scores)
+
 
 if __name__ == "__main__":
     main()

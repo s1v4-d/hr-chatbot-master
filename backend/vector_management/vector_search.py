@@ -79,7 +79,7 @@ class VectorSearch:
 
         # return ranked_results
         # return all_results
-        return vector_results
+        # return vector_results
 
     def search_vector_db(self, query, top_k=3):
         query_embedding = self.embedding_generator.generate_embedding(query)
@@ -88,4 +88,4 @@ class VectorSearch:
         # Perform vector search
         print(f"Performing vector search with top_k={top_k}...")
         vector_results = self.pinecone_manager.query_vectors(query_embedding, top_k=top_k)
-        return vector_results
+        return vector_search_results
