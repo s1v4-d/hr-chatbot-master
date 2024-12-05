@@ -14,25 +14,33 @@ def main():
     )
 
     # Initialize MultiQueryGenerator
-    generator = MultiQueryGenerator("What are the best practices for HR policies?", 2)
-    queries = generator.generate_queries()
-    #print(queries)
-    retrievals = []
-    for query in queries:
-        # Perform hybrid search with minimum coverage
-        results = vector_search.search_vector_db(query, top_k=3)
-        #print(results)
-        retrievals.append(results)
-    print(f"Total results: {len(retrievals)}")
-    print(type(retrievals))
-    print(type(retrievals[0]))
-    print(retrievals)
-    
-    # scores = []
-    # for retrieval in retrievals:
-    #     scores.append(retrieval["metadata"]["score"])
+    # generator = MultiQueryGenerator("What are the best practices for HR policies?", 2)
+    # queries = generator.generate_queries()
+    # #print(queries)
+    # retrievals = []
+    # for query in queries:
+    #     # Perform hybrid search with minimum coverage
+    #     results = vector_search.search_vector_db(query, top_k=3)
+    #     print(f"type of results: {type(results)}")
+    #     #print(results)
+    #     retrievals.append(results)
 
-    # print(scores)
+    # scored_chunks=[]
+    # for retrieval in retrievals:
+    #     for match in retrieval['matches']:
+    #         scored_chunks.append({
+    #             'chunk': match['metadata']['chunk'],
+    #             'score': match['score']
+    #         })
+    # print(scored_chunks)
+    # # scores = []
+    # # for retrieval in retrievals:
+    # #     scores.append(retrieval["metadata"]["score"])
+
+    # # print(scores)
+
+    query = "What are the best practices for HR policies?"
+    print(vector_search.search_vector_db_with_multi_query(query))
 
 
 if __name__ == "__main__":

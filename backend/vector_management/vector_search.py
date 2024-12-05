@@ -1,7 +1,6 @@
 from backend.embeddings.embedding_generator import EmbeddingGenerator
 from backend.vector_management.pinecone_manager import PineconeManager
-from backend.vector_management.bm25_retriever import BM25Retriever
-from backend.vector_management.reranker import Reranker
+from backend.augmentations.multi_query_generator import MultiQueryGenerator 
 from backend.config import Config
 
 class VectorSearch:
@@ -89,3 +88,22 @@ class VectorSearch:
         # print(f"Performing vector search with top_k={top_k}...")
         vector_search_results = self.pinecone_manager.query_vectors(query_embedding, top_k=top_k)
         return vector_search_results
+    
+    def search_vector_db_with_multi_query(self, query, top_k=3):
+        generator = MultiQueryGenerator(query, 2)
+        queries = generator.generate_queries()
+        retrievals = []
+        for query in queries:
+            # Perform hybrid search with minimum coverage
+            results = self.search_vector_db(query, top_k=top_k)
+            # print(f"type of results: {type(results)}")
+            #print(results)
+            retrievals.append(results)
+        scored_chunks=[]
+        for retrieval in retrievals:
+            for match in retrieval['matches']:
+                scored_chunks.append({
+                    'chunk': match['metadata']['chunk'],
+                    'score': match['score']
+                })
+        return scored_chunks
