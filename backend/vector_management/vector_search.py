@@ -40,4 +40,5 @@ class VectorSearch:
                     'chunk': match['metadata']['chunk'],
                     'score': match['score']
                 })
-        return scored_chunks
+        unique_scored_chunks = [{'chunk': chunk, 'score': score} for chunk, score in scored_chunks]
+        return unique_scored_chunks
