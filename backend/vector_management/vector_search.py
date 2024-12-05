@@ -10,7 +10,6 @@ class VectorSearch:
 
         # Initialize the embedding generator directly
         self.embedding_generator = EmbeddingGenerator(model_name=embedding_model_name)
-        print("EmbeddingGenerator initialized.")
         
         # Initialize Pinecone Manager
         self.pinecone_manager = PineconeManager(
@@ -26,7 +25,7 @@ class VectorSearch:
         vector_search_results = self.pinecone_manager.query_vectors(query_embedding, top_k=top_k)
         return vector_search_results
     
-    
+
     def search_vector_db_with_multi_query(self, query, top_k=3):
         generator = MultiQueryGenerator(query, 2)
         queries = generator.generate_queries()

@@ -20,29 +20,3 @@ class Config:
     ELASTICSEARCH_PASSWORD = os.getenv("ELASTICSEARCH_PASSWORD", "password")
     ADMIN_USERNAME = os.getenv("ADMIN_USERNAME")
     ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
-
-#     @staticmethod
-#     def validate():
-#         """Validate configuration variables."""
-#         required_vars = [
-#             "GROQ_API_KEY",
-#             "PINECONE_API_KEY",
-#             "EMBEDDING_MODEL_NAME",
-#             "LLM_MODEL_NAME"
-#         ]
-#         for var in required_vars:
-#             if not getattr(Config, var):
-#                 raise ValueError(f"Missing required environment variable: {var}")
-
-# # Validate configuration and setup logging
-# try:
-#     Config.validate()
-#     logging.basicConfig(
-#         filename="logs/chatbot.log",
-#         level=logging.INFO,
-#         format="%(asctime)s - %(levelname)s - %(message)s"
-#     )
-#     logging.info("Configuration validated and logging initialized.")
-# except Exception as e:
-#     logging.error(f"Configuration validation failed: {str(e)}")
-#     raise
