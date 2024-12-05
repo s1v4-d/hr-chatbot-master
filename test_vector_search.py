@@ -22,7 +22,7 @@ def main():
         # Perform hybrid search with minimum coverage
         results = vector_search.search_vector_db(query, top_k=3)
         print(results)
-        vectors.extend(results)
+        vectors.append(results)
     print(f"Total results: {len(vectors)}")
     print(vectors)
 
