@@ -1,18 +1,21 @@
 import { useState } from "react";
-import { login } from "../api";
+import { login } from "../api/api";
 import "../styles/Login.css";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await login(credentials);
-      console.log("Logged in:", response.data);
+      const response = await login(credentials.username, credentials.password);
+      setSuccess(response.data.message);
+      setError("");
     } catch (err) {
       setError("Invalid login credentials");
+      setSuccess("");
     }
   };
 
@@ -35,6 +38,7 @@ const Login = () => {
         <button type="submit">Login</button>
       </form>
       {error && <p className="error">{error}</p>}
+      {success && <p>{success}</p>}
     </div>
   );
 };
