@@ -15,3 +15,4 @@ streamlit
 torch==2.5.1
 transformers==4.44.2
 uvicorn
+python-multipart
