@@ -1,8 +1,15 @@
 import { useState, useContext } from "react";
 import { uploadFileAPI } from "../api/api";
-import { Box, Button, Typography, CircularProgress } from "@mui/material";
 import { IndexingContext } from "../context/IndexingContext";
 import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Typography,
+  CircularProgress,
+  TextField,
+  Paper
+} from "@mui/material";
 
 const FileUpload = () => {
   const [file, setFile] = useState(null);
@@ -20,14 +27,12 @@ const FileUpload = () => {
     try {
       const response = await uploadFileAPI(file);
       setUploadMessage(response.data.message);
-
-      // Simulate indexing delay here:
       setIsIndexing(true);
-      // After some fake delay, indexing will be done and redirect to chatbot
+      // Simulate indexing delay
       setTimeout(() => {
         setIsIndexing(false);
         navigate("/chatbot");
-      }, 5000); // 5 seconds simulate indexing
+      }, 5000);
     } catch (err) {
       setUploadMessage("Upload failed. Check console for details.");
       console.error("Upload failed", err);
@@ -35,25 +40,28 @@ const FileUpload = () => {
   };
 
   return (
-    <Box textAlign="center" mt={4}>
+    <Paper sx={{ p: 4, textAlign: "center" }}>
       <form onSubmit={handleSubmit}>
-        <input
+        <TextField
           type="file"
-          accept=".docx"
+          inputProps={{ accept: ".docx" }}
           onChange={(e) => setFile(e.target.files[0])}
-          style={{ marginBottom: "1rem" }}
+          variant="outlined"
+          sx={{ mb: 2 }}
         />
         <br />
-        <Button type="submit" variant="contained">Upload</Button>
+        <Button type="submit" variant="contained">
+          Upload
+        </Button>
       </form>
       {uploadMessage && <Typography mt={2}>{uploadMessage}</Typography>}
       {isIndexing && (
         <Box mt={2} display="flex" flexDirection="column" alignItems="center">
-          <Typography>Indexing document, please wait...</Typography>
-          <CircularProgress sx={{ mt: 2 }} />
+          <Typography variant="body1" mb={1}>Indexing document, please wait...</Typography>
+          <CircularProgress />
         </Box>
       )}
-    </Box>
+    </Paper>
   );
 };
 

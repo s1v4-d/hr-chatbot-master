@@ -7,7 +7,7 @@ const Navbar = () => {
   const { isAuthenticated, logout } = useContext(AuthContext);
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ marginBottom: "0.5rem" }}>
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           HR Chatbot
