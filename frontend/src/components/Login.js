@@ -1,20 +1,22 @@
 import { useState, useContext } from "react";
 import { loginAPI } from "../api/api";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import { Box, TextField, Button, Typography, Paper } from "@mui/material";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await loginAPI(credentials.username, credentials.password);
-      // If success, store token (dummy token from backend or actual)
+      await loginAPI(credentials.username, credentials.password);
       login("dummy_token");
       setError("");
+      navigate("/chatbot"); // Redirect immediately after login
     } catch (err) {
       setError("Invalid login credentials");
     }

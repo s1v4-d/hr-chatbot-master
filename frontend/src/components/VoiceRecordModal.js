@@ -15,22 +15,10 @@ import SendIcon from "@mui/icons-material/Send";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { chatAPI } from "../api/api";
 
-// Helper function to choose a female voice if available
-const getFemaleVoice = () => {
-  const voices = speechSynthesis.getVoices();
-  // Try to find an English female voice
-  return voices.find(
-    (v) =>
-      v.name.toLowerCase().includes("female") ||
-      (v.lang === "en-US" && v.name.toLowerCase().includes("female"))
-  ) || voices[0];
-};
-
 const VoiceRecordModal = ({ open, onClose, onSendMessage }) => {
   const [recognition, setRecognition] = useState(null);
   const [listening, setListening] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [speaking, setSpeaking] = useState(false);
 
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -69,33 +57,11 @@ const VoiceRecordModal = ({ open, onClose, onSendMessage }) => {
 
   const handleSend = async () => {
     if (!transcript.trim()) return;
-    // Send the transcript to the chat backend
     const response = await chatAPI(transcript.trim());
     const botResponse = response.data.response;
     onSendMessage(transcript.trim(), botResponse);
-    speak(botResponse);
     setTranscript("");
     onClose();
-  };
-
-  const speak = (text) => {
-    if ('speechSynthesis' in window) {
-      setSpeaking(true);
-      const utterance = new SpeechSynthesisUtterance(text);
-      const voice = getFemaleVoice();
-      if (voice) utterance.voice = voice;
-      utterance.onend = () => {
-        setSpeaking(false);
-      };
-      speechSynthesis.speak(utterance);
-    }
-  };
-
-  const stopSpeaking = () => {
-    if ('speechSynthesis' in window && speaking) {
-      speechSynthesis.cancel();
-      setSpeaking(false);
-    }
   };
 
   const handleCancel = () => {
@@ -122,11 +88,6 @@ const VoiceRecordModal = ({ open, onClose, onSendMessage }) => {
         <Typography variant="body2" sx={{ minHeight: "2rem" }}>
           Transcript: {transcript}
         </Typography>
-        {speaking && (
-          <Box mt={2}>
-            <Button variant="outlined" onClick={stopSpeaking}>Stop Voice Output</Button>
-          </Box>
-        )}
       </DialogContent>
       <DialogActions>
         <Button startIcon={<CancelIcon />} onClick={handleCancel}>Cancel</Button>

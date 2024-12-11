@@ -1,9 +1,5 @@
 import Chat from "../components/Chat";
 
-const ChatbotPage = () => (
-  <div>
-    <Chat />
-  </div>
-);
+const ChatbotPage = () => <Chat />;
 
 export default ChatbotPage;

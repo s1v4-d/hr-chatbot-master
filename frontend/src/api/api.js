@@ -1,14 +1,12 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000/api", // Change to production URL as needed
+  baseURL: "http://localhost:8000/api", // Update to production if needed
 });
 
-// Login API
 export const loginAPI = (username, password) =>
   api.post("/login", { username, password });
 
-// Upload API
 export const uploadFileAPI = (file) => {
   const formData = new FormData();
   formData.append("file", file);
@@ -17,5 +15,5 @@ export const uploadFileAPI = (file) => {
   });
 };
 
-// Chat API
-export const chatAPI = (message) => api.post("/chat", { query: message });
+export const chatAPI = (message) =>
+  api.post("/chat", { query: message });
