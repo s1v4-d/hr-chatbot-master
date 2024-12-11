@@ -1,39 +1,59 @@
-import { useState } from "react";
-import { uploadFile } from "../api/api";
-import "../styles/FileUploadPage.css";
+import { useState, useContext } from "react";
+import { uploadFileAPI } from "../api/api";
+import { Box, Button, Typography, CircularProgress } from "@mui/material";
+import { IndexingContext } from "../context/IndexingContext";
+import { useNavigate } from "react-router-dom";
 
 const FileUpload = () => {
   const [file, setFile] = useState(null);
-  const [message, setMessage] = useState("");
+  const [uploadMessage, setUploadMessage] = useState("");
+  const { isIndexing, setIsIndexing } = useContext(IndexingContext);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!file) {
-      setMessage("Please select a DOCX file first.");
+      setUploadMessage("Please select a DOCX file first.");
       return;
     }
 
     try {
-      const response = await uploadFile(file);
-      setMessage(response.data.message);
+      const response = await uploadFileAPI(file);
+      setUploadMessage(response.data.message);
+
+      // Simulate indexing delay here:
+      setIsIndexing(true);
+      // After some fake delay, indexing will be done and redirect to chatbot
+      setTimeout(() => {
+        setIsIndexing(false);
+        navigate("/chatbot");
+      }, 5000); // 5 seconds simulate indexing
     } catch (err) {
-      setMessage("Upload failed. Please check console for details.");
+      setUploadMessage("Upload failed. Check console for details.");
       console.error("Upload failed", err);
     }
   };
 
   return (
-    <div>
+    <Box textAlign="center" mt={4}>
       <form onSubmit={handleSubmit}>
         <input
           type="file"
           accept=".docx"
           onChange={(e) => setFile(e.target.files[0])}
+          style={{ marginBottom: "1rem" }}
         />
-        <button type="submit">Upload</button>
+        <br />
+        <Button type="submit" variant="contained">Upload</Button>
       </form>
-      {message && <p>{message}</p>}
-    </div>
+      {uploadMessage && <Typography mt={2}>{uploadMessage}</Typography>}
+      {isIndexing && (
+        <Box mt={2} display="flex" flexDirection="column" alignItems="center">
+          <Typography>Indexing document, please wait...</Typography>
+          <CircularProgress sx={{ mt: 2 }} />
+        </Box>
+      )}
+    </Box>
   );
 };
 
