@@ -1,11 +1,12 @@
 import FileUpload from "../components/FileUpload";
+import { Box, Typography } from "@mui/material";
 
 const FileUploadPage = () => (
-  <div className="file-upload-page">
-    <h1>Upload Your Documents</h1>
-    <p>Upload DOCX files to process them with our HR Chatbot.</p>
+  <Box textAlign="center" p={4}>
+    <Typography variant="h4" mb={2}>Upload Your Documents</Typography>
+    <Typography variant="body1" mb={2}>Upload DOCX files to process them with our HR Chatbot.</Typography>
     <FileUpload />
-  </div>
+  </Box>
 );
 
 export default FileUploadPage;

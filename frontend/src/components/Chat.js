@@ -1,108 +1,100 @@
-import { useState, useEffect } from "react";
-import { chat } from "../api/api";
+import { useState, useContext, useEffect } from "react";
+import { chatAPI } from "../api/api";
+import { IndexingContext } from "../context/IndexingContext";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Paper,
+  CircularProgress,
+  IconButton
+} from "@mui/material";
+import MicIcon from "@mui/icons-material/Mic";
+import VoiceRecordModal from "./VoiceRecordModal";
 import "../styles/Chat.css";
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const [recognition, setRecognition] = useState(null);
-  const [listening, setListening] = useState(false);
-
-  useEffect(() => {
-    // Initialize Speech Recognition
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRecognition) {
-      const recog = new SpeechRecognition();
-      recog.continuous = false;
-      recog.interimResults = false;
-      recog.lang = 'en-US';
-
-      recog.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        setInput(transcript);
-      };
-
-      recog.onerror = (err) => {
-        console.error("Speech recognition error:", err);
-      };
-
-      setRecognition(recog);
-    }
-  }, []);
+  const [loadingResponse, setLoadingResponse] = useState(false);
+  const { isIndexing } = useContext(IndexingContext);
+  const [voiceModalOpen, setVoiceModalOpen] = useState(false);
 
   const sendMessage = async () => {
     if (!input.trim()) return;
     const userMessage = input.trim();
     setInput("");
-
-    // Add user message to messages
+    setLoadingResponse(true);
     setMessages((prev) => [...prev, { user: userMessage, bot: "" }]);
-
     try {
-      const response = await chat(userMessage);
+      const response = await chatAPI(userMessage);
       const botResponse = response.data.response;
-
-      // Update the last message with bot response
       setMessages((prev) => {
         const updated = [...prev];
         updated[updated.length - 1].bot = botResponse;
         return updated;
       });
-
-      // Speak out the bot response
-      speak(botResponse);
     } catch (err) {
       console.error("Chat failed", err);
+    } finally {
+      setLoadingResponse(false);
     }
   };
 
-  const speak = (text) => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      speechSynthesis.speak(utterance);
-    }
-  };
-
-  const startListening = () => {
-    if (recognition && !listening) {
-      recognition.start();
-      setListening(true);
-    }
-  };
-
-  const stopListening = () => {
-    if (recognition && listening) {
-      recognition.stop();
-      setListening(false);
-    }
+  const handleVoiceMessage = (userMsg, botMsg) => {
+    // Called from the VoiceRecordModal after send
+    setMessages((prev) => [...prev, { user: userMsg, bot: botMsg }]);
   };
 
   return (
-    <div className="chat-container">
-      <h1>Voice/Text HR Chatbot</h1>
-      <div className="chat-messages">
+    <Box
+      display="flex" 
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="start"
+      height="100vh"
+      bgcolor="#f4f4f4"
+      p={2}
+    >
+      <Typography variant="h4" mb={2}>HR Chatbot</Typography>
+      <Paper 
+        sx={{ 
+          width: "80%", maxWidth: 600, p: 2, mb: 2,
+          height: 300, overflowY: "auto"
+        }}
+      >
         {messages.map((msg, index) => (
-          <div className="chat-message" key={index}>
-            <strong>You:</strong> {msg.user}
-            <br />
-            <strong>Bot:</strong> {msg.bot}
-          </div>
+          <Box key={index} mb={2}>
+            <Typography variant="body1"><strong>You:</strong> {msg.user}</Typography>
+            <Typography variant="body1"><strong>Bot:</strong> {msg.bot || (loadingResponse && index === messages.length - 1 ? "Typing..." : "")}</Typography>
+          </Box>
         ))}
-      </div>
-      <div className="chat-input">
-        <input
-          type="text"
+      </Paper>
+      <Box display="flex" gap={1} width="80%" maxWidth={600} mb={2}>
+        <TextField
+          variant="outlined"
+          fullWidth
+          placeholder={isIndexing ? "Indexing in progress..." : "Type your message"}
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your message or use voice"
+          disabled={isIndexing || loadingResponse}
         />
-        <button onClick={sendMessage}>Send</button>
-      </div>
-      <div className="voice-controls">
-        <button onClick={startListening} disabled={listening}>Start Voice</button>
-        <button onClick={stopListening} disabled={!listening}>Stop Voice</button>
-      </div>
-    </div>
+        <Button variant="contained" onClick={sendMessage} disabled={isIndexing || loadingResponse || !input.trim()}>
+          Send
+        </Button>
+        <IconButton color="primary" onClick={() => setVoiceModalOpen(true)} disabled={isIndexing || loadingResponse}>
+          <MicIcon />
+        </IconButton>
+      </Box>
+      {loadingResponse && <CircularProgress />}
+
+      <VoiceRecordModal
+        open={voiceModalOpen}
+        onClose={() => setVoiceModalOpen(false)}
+        onSendMessage={handleVoiceMessage}
+      />
+    </Box>
   );
 };
 
