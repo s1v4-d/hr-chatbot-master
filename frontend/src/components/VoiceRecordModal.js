@@ -13,9 +13,8 @@ import MicIcon from "@mui/icons-material/Mic";
 import StopIcon from "@mui/icons-material/Stop";
 import SendIcon from "@mui/icons-material/Send";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { chatAPI } from "../api/api";
 
-const VoiceRecordModal = ({ open, onClose, onSendMessage }) => {
+const VoiceRecordModal = ({ open, onClose, onSendTranscript }) => {
   const [recognition, setRecognition] = useState(null);
   const [listening, setListening] = useState(false);
   const [transcript, setTranscript] = useState("");
@@ -24,18 +23,22 @@ const VoiceRecordModal = ({ open, onClose, onSendMessage }) => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (SpeechRecognition) {
       const recog = new SpeechRecognition();
-      recog.continuous = false;
-      recog.interimResults = false;
+      recog.continuous = true;
+      recog.interimResults = true;
       recog.lang = 'en-US';
 
       recog.onresult = (event) => {
-        const spoken = event.results[0][0].transcript;
-        setTranscript(spoken);
+        let finalTranscript = "";
+        for (let i = 0; i < event.results.length; i++) {
+          finalTranscript += event.results[i][0].transcript + " ";
+        }
+        setTranscript(finalTranscript.trim());
       };
 
       recog.onerror = (err) => {
         console.error("Speech recognition error:", err);
       };
+
       setRecognition(recog);
     }
   }, []);
@@ -57,16 +60,23 @@ const VoiceRecordModal = ({ open, onClose, onSendMessage }) => {
 
   const handleSend = async () => {
     if (!transcript.trim()) return;
-    const response = await chatAPI(transcript.trim());
-    const botResponse = response.data.response;
-    onSendMessage(transcript.trim(), botResponse);
+    // If currently listening, stop first
+    if (listening) {
+      recognition.stop();
+      setListening(false);
+    }
+    // Send transcript up to parent
+    onSendTranscript(transcript.trim());
     setTranscript("");
-    onClose();
+    onClose(); // Close modal after sending
   };
 
   const handleCancel = () => {
     setTranscript("");
-    stopListening();
+    if (listening) {
+      recognition.stop();
+      setListening(false);
+    }
     onClose();
   };
 
@@ -75,14 +85,11 @@ const VoiceRecordModal = ({ open, onClose, onSendMessage }) => {
       <DialogTitle>Record Your Voice Message</DialogTitle>
       <DialogContent>
         <Typography variant="body1" mb={2}>
-          Press the microphone to start recording. Press stop to finish.
+          Press the microphone to start/stop recording. Speak your query, then send.
         </Typography>
         <Box display="flex" justifyContent="center" gap={2} mb={2}>
-          <IconButton color="primary" onClick={startListening} disabled={listening}>
-            <MicIcon />
-          </IconButton>
-          <IconButton color="error" onClick={stopListening} disabled={!listening}>
-            <StopIcon />
+          <IconButton color={listening ? "secondary" : "primary"} onClick={listening ? stopListening : startListening}>
+            {listening ? <StopIcon /> : <MicIcon />}
           </IconButton>
         </Box>
         <Typography variant="body2" sx={{ minHeight: "2rem" }}>
