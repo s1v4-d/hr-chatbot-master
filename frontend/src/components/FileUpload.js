@@ -26,13 +26,13 @@ const FileUpload = () => {
 
     try {
       const response = await uploadFileAPI(file);
-      setUploadMessage(response.data.message);
+      setUploadMessage(response.data.message || "File accepted. Indexing...");
       setIsIndexing(true);
-      // Simulate indexing delay
+      // Simulate longer indexing delay
       setTimeout(() => {
         setIsIndexing(false);
         navigate("/chatbot");
-      }, 5000);
+      }, 10000); // 10 seconds
     } catch (err) {
       setUploadMessage("Upload failed. Check console for details.");
       console.error("Upload failed", err);
@@ -40,19 +40,18 @@ const FileUpload = () => {
   };
 
   return (
-    <Paper sx={{ p: 4, textAlign: "center" }}>
+    <Paper sx={{ p: 4, textAlign: "center", maxWidth: 400, mx: "auto", mt: 4 }}>
+      <Typography variant="h4" mb={2}>Upload Documents</Typography>
+      <Typography variant="body1" mb={2}>Upload DOCX files to process with our HR Chatbot.</Typography>
       <form onSubmit={handleSubmit}>
         <TextField
           type="file"
           inputProps={{ accept: ".docx" }}
           onChange={(e) => setFile(e.target.files[0])}
           variant="outlined"
-          sx={{ mb: 2 }}
+          sx={{ mb: 2, width: "100%" }}
         />
-        <br />
-        <Button type="submit" variant="contained">
-          Upload
-        </Button>
+        <Button type="submit" variant="contained" fullWidth>Upload</Button>
       </form>
       {uploadMessage && <Typography mt={2}>{uploadMessage}</Typography>}
       {isIndexing && (

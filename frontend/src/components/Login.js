@@ -16,7 +16,7 @@ const Login = () => {
       await loginAPI(credentials.username, credentials.password);
       login("dummy_token");
       setError("");
-      navigate("/chatbot"); // Redirect immediately after login
+      navigate("/chatbot");
     } catch (err) {
       setError("Invalid login credentials");
     }
@@ -31,10 +31,8 @@ const Login = () => {
       height="100vh"
       bgcolor="#f4f4f4"
     >
-      <Paper sx={{ p: 4, width: 300 }}>
-        <Typography variant="h5" mb={2} textAlign="center">
-          Login
-        </Typography>
+      <Paper sx={{ p: 4, width: 300, textAlign: "center" }}>
+        <Typography variant="h5" mb={2}>Login</Typography>
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <TextField
             label="Username"
@@ -50,9 +48,7 @@ const Login = () => {
             onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
           />
           {error && <Typography color="error">{error}</Typography>}
-          <Button type="submit" variant="contained">
-            Login
-          </Button>
+          <Button type="submit" variant="contained">Login</Button>
         </form>
       </Paper>
     </Box>
