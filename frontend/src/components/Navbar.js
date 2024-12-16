@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
-  const { isAuthenticated, logout } = useContext(AuthContext);
+  const { isAuthenticated, isAdmin, logout } = useContext(AuthContext);
 
   return (
     <AppBar position="static" sx={{ marginBottom: "0.5rem" }}>
@@ -17,17 +17,24 @@ const Navbar = () => {
             <Button color="inherit" component={Link} to="/chatbot">
               Chatbot
             </Button>
-            <Button color="inherit" component={Link} to="/upload">
-              Upload Documents
-            </Button>
+            {isAdmin && (
+              <Button color="inherit" component={Link} to="/upload">
+                Upload Documents
+              </Button>
+            )}
             <Button color="inherit" onClick={logout}>
               Logout
             </Button>
           </>
         ) : (
-          <Button color="inherit" component={Link} to="/login">
-            Login
-          </Button>
+          <>
+            <Button color="inherit" component={Link} to="/login">
+              Login
+            </Button>
+            <Button color="inherit" component={Link} to="/register">
+              Register
+            </Button>
+          </>
         )}
       </Toolbar>
     </AppBar>

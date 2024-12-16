@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { loginAPI } from "../api/api";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Box, TextField, Button, Typography, Paper } from "@mui/material";
 
 const Login = () => {
@@ -13,9 +13,11 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await loginAPI(credentials.username, credentials.password);
-      login("dummy_token");
+      const response = await loginAPI(credentials.username, credentials.password);
+      const { access_token } = response.data;
+      login(access_token);
       setError("");
+      // After login, navigate to chatbot (the Navbar will show upload if admin)
       navigate("/chatbot");
     } catch (err) {
       setError("Invalid login credentials");
@@ -50,6 +52,11 @@ const Login = () => {
           {error && <Typography color="error">{error}</Typography>}
           <Button type="submit" variant="contained">Login</Button>
         </form>
+        <Box mt={2}>
+          <Typography variant="body2">
+            Don't have an account? <Link to="/register">Register Here</Link>
+          </Typography>
+        </Box>
       </Paper>
     </Box>
   );
