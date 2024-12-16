@@ -6,7 +6,7 @@ from backend.vector_management.pinecone_manager import PineconeManager
 from backend.config import Config
 import os
 import time
-from backend.apis.auth_utils import decode_token
+from apis.auth_utils import decode_token
 
 router = APIRouter()
 security = HTTPBearer()
