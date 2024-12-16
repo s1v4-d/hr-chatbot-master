@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from apis.upload_api import router as upload_router
 from apis.chat_api import router as chat_router
 from apis.login_api import router as login_router
+from apis.registration_api import router as registration_router  # <-- Import registration router
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -19,16 +20,17 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Domains allowed to make requests
-    allow_credentials=True,  # Allow cookies and credentials
-    allow_methods=["*"],  # Allow all HTTP methods
-    allow_headers=["*"],  # Allow all headers
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Include routers
 app.include_router(upload_router, prefix="/api")
 app.include_router(chat_router, prefix="/api")
 app.include_router(login_router, prefix="/api")
+app.include_router(registration_router, prefix="/api")  # <-- Include the registration router
 
 @app.get("/", tags=["Health"])
 async def health_check():

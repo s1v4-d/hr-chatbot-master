@@ -9,6 +9,7 @@ passlib[bcrypt]==1.7.4
 # Database & ORM
 sqlalchemy==2.0.21
 python-dotenv==1.0.1
+pydantic[email]==2.9.0
 
 # Data & NLP
 numpy==2.1.3
