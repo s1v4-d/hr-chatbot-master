@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import LoginPage from "./pages/LoginPage";
 import ChatbotPage from "./pages/ChatbotPage";
 import FileUploadPage from "./pages/FileUploadPage";
+import RegistrationPage from "./pages/RegistrationPage"; // New
 import "./styles/App.css";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
@@ -15,21 +16,22 @@ const App = () => (
         <Navbar />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-          <Route 
-            path="/chatbot" 
+          <Route path="/register" element={<RegistrationPage />} />
+          <Route
+            path="/chatbot"
             element={
               <ProtectedRoute>
                 <ChatbotPage />
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/upload" 
+          <Route
+            path="/upload"
             element={
               <ProtectedRoute>
                 <FileUploadPage />
               </ProtectedRoute>
-            } 
+            }
           />
           <Route path="*" element={<LoginPage />} />
         </Routes>
