@@ -20,3 +20,6 @@ class Config:
     ELASTICSEARCH_PASSWORD = os.getenv("ELASTICSEARCH_PASSWORD", "password")
     ADMIN_USERNAME = os.getenv("ADMIN_USERNAME")
     ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
+    TEMPERATURE = float(os.getenv("TEMPERATURE", "0.3"))
+    TOP_P = float(os.getenv("TOP_P", "0.3"))
+    MAX_TOKENS = int(os.getenv("MAX_TOKENS", "1024"))
