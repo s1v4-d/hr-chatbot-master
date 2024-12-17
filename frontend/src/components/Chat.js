@@ -37,6 +37,7 @@ const Chat = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [multiqueryEnabled, setMultiqueryEnabled] = useState(false);
   const [rerankingEnabled, setRerankingEnabled] = useState(false);
+  const [streamEnabled, setStreamEnabled] = useState(false);
 
   const [speakingIndex, setSpeakingIndex] = useState(null);
   const utteranceRef = useRef(null);
@@ -58,9 +59,7 @@ const Chat = () => {
   const getFemaleVoice = () => {
     const voices = window.speechSynthesis.getVoices();
     return (
-      voices.find((v) =>
-        v.name.toLowerCase().includes("female")
-      ) ||
+      voices.find((v) => v.name.toLowerCase().includes("female")) ||
       voices.find((v) => v.lang.startsWith("en")) ||
       voices[0]
     );
@@ -107,16 +106,60 @@ const Chat = () => {
     setMessages((prev) => [...prev, { user: userMessage, bot: "" }]);
     setLoadingResponse(true);
     try {
-      const response = await chatAPI(userMessage, {
-        multiquery: multiqueryEnabled,
-        reranking: rerankingEnabled
-      });
-      const botResponse = response.data.response;
-      setMessages((prev) => {
-        const updated = [...prev];
-        updated[updated.length - 1].bot = botResponse;
-        return updated;
-      });
+      if (!streamEnabled) {
+        // Non-stream request using chatAPI
+        const response = await chatAPI(userMessage, {
+          multiquery: multiqueryEnabled,
+          reranking: rerankingEnabled
+        });
+        const botResponse = response.data.response;
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[updated.length - 1].bot = botResponse;
+          return updated;
+        });
+      } else {
+        // Streaming scenario via fetch
+        const token = localStorage.getItem("token");
+        const headers = { "Content-Type": "application/json" };
+        if (token) {
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+
+        const response = await fetch("http://localhost:8000/api/chat", {
+          method: "POST",
+          headers,
+          body: JSON.stringify({
+            query: userMessage,
+            multiquery: multiqueryEnabled,
+            reranking: rerankingEnabled,
+            stream: true
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let done = false;
+        let partialBotResponse = "";
+
+        while (!done) {
+          const { value, done: doneReading } = await reader.read();
+          done = doneReading;
+          if (value) {
+            const chunk = decoder.decode(value, { stream: true });
+            partialBotResponse += chunk;
+            setMessages((prev) => {
+              const updated = [...prev];
+              updated[updated.length - 1].bot = partialBotResponse;
+              return updated;
+            });
+          }
+        }
+      }
     } catch (err) {
       console.error("Chat failed", err);
     } finally {
@@ -144,12 +187,7 @@ const Chat = () => {
         </IconButton>
       </Box>
       <Box display="flex" flexDirection="column" flexGrow={1}>
-        <Box
-          flexGrow={1}
-          display="flex"
-          flexDirection="column"
-          overflow="hidden"
-        >
+        <Box flexGrow={1} display="flex" flexDirection="column" overflow="hidden">
           <Container
             sx={{
               flexGrow: 1,
@@ -279,6 +317,10 @@ const Chat = () => {
           <FormControlLabel
             control={<Switch checked={rerankingEnabled} onChange={(e) => setRerankingEnabled(e.target.checked)} />}
             label="Enable Reranking"
+          />
+          <FormControlLabel
+            control={<Switch checked={streamEnabled} onChange={(e) => setStreamEnabled(e.target.checked)} />}
+            label="Enable Streaming"
           />
         </DialogContent>
         <DialogActions>
