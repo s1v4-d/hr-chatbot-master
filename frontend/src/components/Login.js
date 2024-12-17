@@ -17,7 +17,6 @@ const Login = () => {
       const { access_token } = response.data;
       login(access_token);
       setError("");
-      // After login, navigate to chatbot (the Navbar will show upload if admin)
       navigate("/chatbot");
     } catch (err) {
       setError("Invalid login credentials");
@@ -48,6 +47,12 @@ const Login = () => {
             variant="outlined"
             value={credentials.password}
             onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && credentials.username.trim() && credentials.password.trim()) {
+                e.preventDefault();
+                handleSubmit(e);
+              }
+            }}
           />
           {error && <Typography color="error">{error}</Typography>}
           <Button type="submit" variant="contained">Login</Button>

@@ -11,11 +11,18 @@ import {
   IconButton,
   Container,
   Card,
-  CardContent
+  CardContent,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  FormControlLabel,
+  Switch
 } from "@mui/material";
 import MicIcon from "@mui/icons-material/Mic";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import StopIcon from "@mui/icons-material/Stop";
+import SettingsIcon from "@mui/icons-material/Settings";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import VoiceRecordModal from "./VoiceRecordModal";
@@ -27,11 +34,14 @@ const Chat = () => {
   const { isIndexing } = useContext(IndexingContext);
   const [voiceModalOpen, setVoiceModalOpen] = useState(false);
 
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [multiqueryEnabled, setMultiqueryEnabled] = useState(false);
+  const [rerankingEnabled, setRerankingEnabled] = useState(false);
+
   const [speakingIndex, setSpeakingIndex] = useState(null);
   const utteranceRef = useRef(null);
 
   useEffect(() => {
-    // Add a default greeting message from the bot if no messages yet
     if (messages.length === 0) {
       setMessages([
         {
@@ -48,10 +58,8 @@ const Chat = () => {
   const getFemaleVoice = () => {
     const voices = window.speechSynthesis.getVoices();
     return (
-      voices.find(
-        (v) =>
-          v.name.toLowerCase().includes("female") ||
-          (v.lang.startsWith("en") && v.name.toLowerCase().includes("female"))
+      voices.find((v) =>
+        v.name.toLowerCase().includes("female")
       ) ||
       voices.find((v) => v.lang.startsWith("en")) ||
       voices[0]
@@ -99,7 +107,10 @@ const Chat = () => {
     setMessages((prev) => [...prev, { user: userMessage, bot: "" }]);
     setLoadingResponse(true);
     try {
-      const response = await chatAPI(userMessage);
+      const response = await chatAPI(userMessage, {
+        multiquery: multiqueryEnabled,
+        reranking: rerankingEnabled
+      });
       const botResponse = response.data.response;
       setMessages((prev) => {
         const updated = [...prev];
@@ -114,12 +125,24 @@ const Chat = () => {
   };
 
   const onSendTranscript = async (transcript) => {
-    // Immediately show user's voice message
     await processUserMessage(transcript);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey && !isIndexing && !loadingResponse && input.trim()) {
+      e.preventDefault();
+      sendTextMessage();
+    }
   };
 
   return (
     <Box display="flex" flexDirection="column" height="calc(100vh - 64px)">
+      <Box display="flex" justifyContent="space-between" alignItems="center" p={2}>
+        <Typography variant="h4">HR Chatbot</Typography>
+        <IconButton onClick={() => setSettingsOpen(true)}>
+          <SettingsIcon />
+        </IconButton>
+      </Box>
       <Box display="flex" flexDirection="column" flexGrow={1}>
         <Box
           flexGrow={1}
@@ -137,7 +160,6 @@ const Chat = () => {
               paddingBottom: 2,
             }}
           >
-            <Typography variant="h4" mb={2}>HR Chatbot</Typography>
             <Paper
               sx={{
                 flexGrow: 1,
@@ -223,6 +245,7 @@ const Chat = () => {
                 placeholder={isIndexing ? "Indexing in progress..." : "Type your message"}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
                 disabled={isIndexing || loadingResponse}
               />
               <Button variant="contained" onClick={sendTextMessage} disabled={isIndexing || loadingResponse || !input.trim()}>
@@ -245,6 +268,23 @@ const Chat = () => {
         onClose={() => setVoiceModalOpen(false)}
         onSendTranscript={onSendTranscript}
       />
+
+      <Dialog open={settingsOpen} onClose={() => setSettingsOpen(false)}>
+        <DialogTitle>Settings</DialogTitle>
+        <DialogContent dividers sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <FormControlLabel
+            control={<Switch checked={multiqueryEnabled} onChange={(e) => setMultiqueryEnabled(e.target.checked)} />}
+            label="Enable Multiquery"
+          />
+          <FormControlLabel
+            control={<Switch checked={rerankingEnabled} onChange={(e) => setRerankingEnabled(e.target.checked)} />}
+            label="Enable Reranking"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setSettingsOpen(false)}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
