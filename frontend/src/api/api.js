@@ -1,10 +1,9 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000/api", // Update to production as needed
+  baseURL: "http://localhost:8000/api",
 });
 
-// Attach Bearer token if available
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -27,5 +26,6 @@ export const uploadFileAPI = (file) => {
   });
 };
 
-export const chatAPI = (message) =>
-  api.post("/chat", { query: message });
+// Updated to accept multiquery and reranking options
+export const chatAPI = (message, {multiquery=false, reranking=false}={}) =>
+  api.post("/chat", { query: message, multiquery, reranking });
